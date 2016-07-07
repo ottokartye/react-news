@@ -1,0 +1,38 @@
+{
+  "name": "react-news",
+  "version": "1.0.0",
+  "description": "simple reactjs application for displaying google news feed",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ottokartye/react-news.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ottokartye/react-news/issues"
+  },
+  "homepage": "https://github.com/ottokartye/react-news#readme",
+  "dependencies": {
+    "babel-core": "^6.10.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.10.2",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
+    "bootstrap": "^3.3.6",
+    "history": "^1.17.0",
+    "jquery": "^3.0.0",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0",
+    "react-router": "^2.5.2",
+    "webpack": "^1.13.1"
+  }
+}
