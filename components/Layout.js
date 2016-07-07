@@ -5,9 +5,11 @@ export default class Layout extends React.Component {
 
 	constructor() {
 		super();
-		this.state = {
-			list: []
-		};
+		var list = [
+		  {title: "First news item", content: "some news comes here", publishedDate: "September 4th 2009", link: "https://google.com/"},
+		  {title: "Another title", content: "some news comes here", publishedDate: "November 4th 2010", link: "https://google.com/"},
+		  {title: "Yet another title", content: "some news comes here", publishedDate: "August 4th 2011", link: "https://google.com/"}
+		];
 	}
 
 	loadNewsFromServer() {
@@ -33,7 +35,7 @@ export default class Layout extends React.Component {
 
 	render() {
 		return (
-			<h1>News feed</h1>
+			<ArticleBox list={this.list} />
 		);
 	}
 }
