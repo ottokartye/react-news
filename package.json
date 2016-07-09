@@ -2,7 +2,7 @@
   "name": "react-news",
   "version": "1.0.0",
   "description": "simple reactjs application for displaying google news feed",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,7 +29,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "bootstrap": "^3.3.6",
     "history": "^1.17.0",
-    "jquery": "^3.0.0",
+    "jquery": "^1.9.1",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-router": "^2.5.2",

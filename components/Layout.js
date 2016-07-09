@@ -1,41 +1,49 @@
 import React from "react";
 import ArticleBox from "./Articles/ArticleBox";
+import SearchBox from "./SearchBox";
+import Categories from "./Categories";
+import PreferencesBox from "./Preferences/PreferencesBox";
+import NewsReader from "../app/NewsReader";
 
 export default class Layout extends React.Component {
 
 	constructor() {
 		super();
-		var list = [
-		  {title: "First news item", content: "some news comes here", publishedDate: "September 4th 2009", link: "https://google.com/"},
-		  {title: "Another title", content: "some news comes here", publishedDate: "November 4th 2010", link: "https://google.com/"},
-		  {title: "Yet another title", content: "some news comes here", publishedDate: "August 4th 2011", link: "https://google.com/"}
-		];
+		this.state = {
+			data: []
+		};
 	}
 
-	loadNewsFromServer() {
-		var subject = this.props.subject;
-		var numberOfItems = this.props.numberOfItems;
-		$.ajax({
-		  url      : document.location.protocol + '//ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=' + numberOfItems + '&callback=?&q=' + encodeURIComponent('http://news.google.com/news?q=' + subject + '&output=rss'),
-		  dataType : 'json',
-		  success  : function (data) {
-	  		if (data.responseData.feed && data.responseData.feed.entries) {
+	loadNewsFromServer(subject = 'apple', numberOfItems = 10) {
+		//console.log('Searching for ' + subject + ' and listing ' + numberOfItems);
+
+		var promise = NewsReader.getPromise(subject, numberOfItems);
+
+		promise.then((data) => {
+	  		if (data.responseData && data.responseData.feed && data.responseData.feed.entries) {
 	  			console.log(data.responseData.feed.entries);
-		    	//this.state = {list: data.responseData.feed.entries};
+		    	this.setState({data: data.responseData.feed.entries});
 			} else {
-				console.log("No feed!");
+				this.setState({data: undefined});
 			}
-		  }.bind(this)
-		});		
+		});
 	}
 
 	componentDidMount() {
-		//setTimeout(this.loadNewsFromServer, 2000);
+		this.loadNewsFromServer();
 	}
 
 	render() {
 		return (
-			<ArticleBox list={this.list} />
+			<div className="row">
+				<div className="col-sm-4">
+					<SearchBox loadNewsFromServer={this.loadNewsFromServer.bind(this)} />
+					<Categories />
+					<PreferencesBox />
+				</div>
+				<ArticleBox data={this.state.data} />
+			</div>
+			
 		);
 	}
 }

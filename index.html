@@ -5,48 +5,49 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>React News Feed</title>
+	<!-- Custom Fonts -->
+    <!-- <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <script type="text/javascript" src="node_modules/jquery/jquery.min.js"></script>
+    <!-- Bootstrap and template style -->
+	<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/blog-post.css" />
 </head>
 
-<body>
+<body id="page-top">
 
-	<header>
-		<nav>
-			<ul>
-				<li>Menu</li>
-			</ul>
-		</nav>
-	</header>
+	<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Google News Feed</a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+	<div class="container" id="app"></div>
 	
-	<section>
+	<!-- Bootstrap Core JavaScript -->
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-		<h2>Latest news</h2>
-	
-		<article>
-			<header>
-				<h2>Article title</h2>
-				<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-			</header>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-		</article>
-		
-		<article>
-			<header>
-				<h2>Article title</h2>
-				<p>Posted on <time datetime="2009-09-04T16:31:24+02:00">September 4th 2009</time> by <a href="#">Writer</a> - <a href="#comments">6 comments</a></p>
-			</header>
-			<p>Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.</p>
-		</article>
-		
-	</section>
-
-	<aside>
-		<h2>About section</h2>
-		<p>Donec eu libero sit amet quam egestas semper. Aenean ultricies mi vitae est. Mauris placerat eleifend leo.</p>
-	</aside>
-
-	<footer>
-		<p>Copyright 2009 Your name</p>
-	</footer>
+    <!-- Application -->
+	<script type="text/javascript" src="app/app.min.js"></script>
 
 </body>
 
