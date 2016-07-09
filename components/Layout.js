@@ -2,7 +2,6 @@ import React from "react";
 import ArticleBox from "./Articles/ArticleBox";
 import SearchBox from "./SearchBox";
 import Categories from "./Categories";
-import PreferencesBox from "./Preferences/PreferencesBox";
 import NewsReader from "../app/NewsReader";
 
 export default class Layout extends React.Component {
@@ -14,17 +13,14 @@ export default class Layout extends React.Component {
 		};
 	}
 
-	loadNewsFromServer(subject = 'apple', numberOfItems = 10) {
-		//console.log('Searching for ' + subject + ' and listing ' + numberOfItems);
-
-		var promise = NewsReader.getPromise(subject, numberOfItems);
+	loadNewsFromServer(subject = 'apple', start = 0) {
+		var promise = NewsReader.getPromise(subject, start);
 
 		promise.then((data) => {
 	  		if (data.responseData && data.responseData.feed && data.responseData.feed.entries) {
-	  			console.log(data.responseData.feed.entries);
-		    	this.setState({data: data.responseData.feed.entries});
+		    	this.setState({data: data.responseData.feed.entries, subject: subject});
 			} else {
-				this.setState({data: undefined});
+				this.setState({data: undefined, subject: subject});
 			}
 		});
 	}
@@ -37,9 +33,8 @@ export default class Layout extends React.Component {
 		return (
 			<div className="row">
 				<div className="col-sm-4">
-					<SearchBox loadNewsFromServer={this.loadNewsFromServer.bind(this)} />
-					<Categories />
-					<PreferencesBox />
+					<SearchBox loadNewsFromServer={this.loadNewsFromServer.bind(this)} subject={this.state.subject} />
+					<Categories loadNewsFromServer={this.loadNewsFromServer.bind(this)} />
 				</div>
 				<ArticleBox data={this.state.data} />
 			</div>

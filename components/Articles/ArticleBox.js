@@ -20,8 +20,7 @@ export default class ArticleBox extends React.Component {
 	render() {
 	    return (
 	    	<div className="col-sm-8">
-		        <h1>News feed: {this.props.subject}</h1>
-                <p className="lead">by <a href="https://news.google.com/">Google</a></p>
+	    		<h2>You searched for: {this.props.subject}</h2>
                 <hr />
                 {this.getNodes()}
             </div>

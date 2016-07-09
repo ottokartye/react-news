@@ -1,15 +1,25 @@
 import React from "react";
+import UserPreferences from "../app/UserPreferences";
 
 export default class SearchBox extends React.Component {
+
+	constructor() {
+		super();
+		this.state = {
+			preferences: new UserPreferences("otto")
+		};
+	}
 
 	handleSearch(e) {
 		var terms = document.getElementById('searchInput').value;
 		var termsArr = terms.split(" ");
 		var searchTerm = termsArr.join("+");
-		var select = document.getElementById("itemsToDisplay");
-		var numberOfItems = select.options[select.selectedIndex].value;
 
-		this.props.loadNewsFromServer(searchTerm, numberOfItems);
+		// Execute search
+		this.props.loadNewsFromServer(searchTerm, 0);
+
+		// Update search history
+		this.state.preferences.savePreference("searches", searchTerm);
 	}
 	
 	render() {
