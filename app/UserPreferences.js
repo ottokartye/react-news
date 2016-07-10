@@ -9,7 +9,7 @@ export default class UserPreferences extends LocalStorage {
 		// If preference doesn't exist yet then create it
 		var userDto = this.get(this.username);
 		if (userDto == undefined) {
-			userDto = new UserDto(username, "siri,apple,animal+rescue", 1);
+			userDto = new UserDto(username, "", 10, 1);
 			this.set(this.username, JSON.stringify(userDto));
 		}
 	}
@@ -46,6 +46,9 @@ export default class UserPreferences extends LocalStorage {
 					value = value.replace(" ", "+");
 				}
 				oldDto.searches += value;
+				break;
+			case "increment":
+				oldDto.increment = value;
 				break;
 			case "logins":
 				oldDto.logins += 1;

@@ -1,31 +1,21 @@
 import React from "react";
-import UserPreferences from "../app/UserPreferences";
+//import UserPreferences from "../app/UserPreferences";
 
 export default class Categories extends React.Component {
 
-    constructor() {
-        super();
-        this.state = {
-            userPreferences: new UserPreferences("otto")
-        }
-    }
-
     getPreviousSearches() {
-        var previousSearches = this.state.userPreferences.getPreference("searches");
+        var previousSearches = this.props.preferences.getPreference("searches");
         var previousSearchesArr = previousSearches.split(",");
         return previousSearchesArr.map((item, index) => {
             return (
-                <li key={index}><a href="#" onClick={this.handleSearch.bind(this, item)}>{item}</a></li>
+                <li key={index}><a href="#" onClick={this.handleSearch.bind(this, item)}>{item.replace("+", " ")}</a></li>
             );
         });
     }
 
     handleSearch(item) {
         // Execute search
-        this.props.loadNewsFromServer(item, 0);
-
-        // Save preferences
-        //this.state.userPreferences.set()
+        this.props.loadNewsFromServer(item, this.props.preferences.getPreference("increment"));
     }
 
 	render() {
