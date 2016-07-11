@@ -30,6 +30,7 @@
     "bootstrap": "^3.3.6",
     "history": "^1.17.0",
     "jquery": "^1.9.1",
+    "js-md5": "^0.4.1",
     "react": "^15.2.0",
     "react-dom": "^15.2.0",
     "react-router": "^2.5.2",

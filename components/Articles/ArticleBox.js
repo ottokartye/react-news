@@ -4,10 +4,10 @@ import NoResult from "../NoResult";
 
 export default class ArticleBox extends React.Component {
 
-	constructor() {
+	constructor(props) {
 		super();
 		this.state = {
-			numberOfItems: 10
+			numberOfItems: props.preferences.getPreference(props.username, "searches")
 		};
 	}
 	
@@ -22,20 +22,17 @@ export default class ArticleBox extends React.Component {
 	handleScroll() {
 		let scrollTop = event.srcElement.body.scrollTop + 648;
 		let scrollHeight = document.getElementById('ArticleBox').scrollHeight;
-		//console.log(window.innerHeight + window.scrollY + " | " + document.body.offsetHeight);
 		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
-	        var couldLoad = this.props.loadNewsFromServer(this.props.subject, this.state.numberOfItems + this.props.preferences.getPreference("increment"));
+			// Reset numberOfItems if it's a new search
+			if (this.props.resetNumberOfItems) {
+				//console.log("New search! Reseting numberOfItems to 10");
+				this.setState({numberOfItems: this.props.preferences.getPreference(this.props.username, "increment")});
+			}
+	        var couldLoad = this.props.loadNewsFromServer(this.props.subject, this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment"));
         	if (couldLoad) {
-        		this.setState({numberOfItems: this.state.numberOfItems + this.props.preferences.getPreference("increment")});
+        		this.setState({numberOfItems: this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment")});
         	}
 	    }
-		
-        // if (scrollHeight === scrollTop) {
-        // 	var couldLoad = this.props.loadNewsFromServer(this.props.subject, this.state.numberOfItems + this.props.preferences.getPreference("increment"));
-        // 	if (couldLoad) {
-        // 		this.setState({numberOfItems: this.state.numberOfItems + this.props.preferences.getPreference("increment")});
-        // 	}
-        // }
 	}
 
 	getNodes() {

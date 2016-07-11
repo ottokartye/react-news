@@ -1,63 +1,78 @@
-import LocalStorage from "./LocalStorage";
 import UserDto from "./UserDto";
 
-export default class UserPreferences extends LocalStorage {
+export default class UserPreferences {
 
-	constructor(username) {
-		super();
-		this.username = username;
-		// If preference doesn't exist yet then create it
-		var userDto = this.get(this.username);
-		if (userDto == undefined) {
-			userDto = new UserDto(username, "", 10, 1);
-			this.set(this.username, JSON.stringify(userDto));
+	checkUserCredentials(username, password) {
+		var preferences = JSON.parse(localStorage.getItem(username));
+		//console.log(preferences);
+		if (preferences != null) {
+			if (preferences.password === password) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
 		}
 	}
 
-	savePreference(key, value) {
-		// Read all preferences for user
-		var preferences = this.get("otto");
-		preferences = JSON.parse(preferences);
-		// Update DTO
-		preferences = this.updateUserDto(preferences, key, value);
-		// Save DTO
-		this.set(this.username, JSON.stringify(preferences));
+	initUser(username, password) {
+		var userDto = new UserDto(username, password, "", 10, 1);
+		localStorage.setItem(username, JSON.stringify(userDto));
+		this.setUser(username);
 	}
 
-	getPreference(key) {
-		//console.log("Trying to get preference " + key);
-		var preferences = this.get(this.username);
+	getPreferenceObject(username) {
+		var model = localStorage.getItem(username);
+		return JSON.parse(model);
+	}
+
+	incrementLogins(username) {
+		var model = this.getPreferenceObject();
+		model.logins += 1;
+		localStorage.setItem(username, JSON.stringify(model));
+	}
+
+	updateSearchHistory(username, value) {
+		var model = this.getPreferenceObject(username);
+		// Add comma if not the first entry
+		if (model.searches !== "") {
+			model.searches += ",";
+		}
+		// Replace space with + sign
+		if (value.indexOf(" ") > -1) {
+			value = value.replace(" ", "+");
+		}
+		model.searches += value;
+		return localStorage.setItem(this.username, JSON.stringify(model));
+	}
+
+	updateScrollSize(username, value) {
+		if (value === 0 && value === "") {
+			return false;
+		}
+		var model = this.getPreferenceObject(username);
+		model.increment = value;
+		return localStorage.setItem(username, JSON.stringify(model));
+	}
+
+	removeSearchHistoryItem(username, index) {
+		var model = this.getPreferenceObject(username);
+		var searchHistoryArr = model.searches.split(",");
+		searchHistoryArr.splice(index, 1);
+		model.searches = searchHistoryArr.join(",");
+		return localStorage.setItem(username, JSON.stringify(model));
+	}
+
+	// Getting the value of a preference
+	getPreference(username, key) {
+		var preferences = localStorage.getItem(username);
 		var userDto = JSON.parse(preferences);
-		//console.log(userDto);
 		return userDto[key];
 	}
 
-	getAll() {
-		return this.get(this.username);
-	}
-
-	updateUserDto(oldDto, key, value) {
-		switch(key) {
-			case "searches":
-				if (oldDto.searches !== "") {
-					oldDto.searches += ",";
-				}
-				if (value.indexOf(" ") > -1) {
-					value = value.replace(" ", "+");
-				}
-				oldDto.searches += value;
-				break;
-			case "increment":
-				oldDto.increment = value;
-				break;
-			case "logins":
-				oldDto.logins += 1;
-				break;
-		}
-
-		return oldDto;
+	clearPreferences(key) {
+		return localStorage.removeItem(key);
 	}
 
 }
-
-//var user = {"otto": {username: "otto", searches: "asd,sdf+asd,sdf", logins: 23}};

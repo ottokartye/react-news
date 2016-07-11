@@ -1,23 +1,14 @@
 import React from "react";
 
-export default class SearchBox extends React.Component {
+export default class PreferencesBox extends React.Component {
 
-	handleSearch(e) {
-		var terms = document.getElementById('searchInput').value;
-		var termsArr = terms.split(" ");
-		var searchTerm = termsArr.join("+");
-
-		// Execute search
-		this.props.loadNewsFromServer(searchTerm, this.props.preferences.getPreference(this.props.username, "increment"));
-
-		// Update search history
-		this.props.preferences.updateSearchHistory(this.props.username, searchTerm);
+	constructor() {
+		super();
 	}
-	
-	render() {
 
+	render() {
 		return (
-            <div className="well">
+			<div className="well">
                 <h4>Search news</h4>
                 <div className="input-group">
                     <input id="searchInput" type="text" className="form-control" onClick={this.search} />
@@ -30,4 +21,5 @@ export default class SearchBox extends React.Component {
             </div>
 		);
 	}
+
 }
