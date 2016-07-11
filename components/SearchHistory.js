@@ -8,7 +8,6 @@ export default class SearchHistory extends React.Component {
     }
 
     getPreviousSearches() {
-        console.log();
         var previousSearches = this.props.preferences.getPreference(this.props.username, "searches");
         var previousSearchesArr = previousSearches.split(",");
         return previousSearchesArr.map((item, index) => {
@@ -45,7 +44,7 @@ export default class SearchHistory extends React.Component {
                 <div className="row">
                     <div className="col-lg-6">
                         <ul className="list-unstyled">
-                            {this.getPreviousSearches.bind(this)}
+                            {this.getPreviousSearches()}
                         </ul>
                     </div>
                 </div>

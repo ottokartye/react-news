@@ -28,13 +28,14 @@ export default class UserPreferences {
 	}
 
 	incrementLogins(username) {
-		var model = this.getPreferenceObject();
+		var model = this.getPreferenceObject(username);
 		model.logins += 1;
 		localStorage.setItem(username, JSON.stringify(model));
 	}
 
 	updateSearchHistory(username, value) {
 		var model = this.getPreferenceObject(username);
+
 		// Add comma if not the first entry
 		if (model.searches !== "") {
 			model.searches += ",";
@@ -44,7 +45,7 @@ export default class UserPreferences {
 			value = value.replace(" ", "+");
 		}
 		model.searches += value;
-		return localStorage.setItem(this.username, JSON.stringify(model));
+		return localStorage.setItem(username, JSON.stringify(model));
 	}
 
 	updateScrollSize(username, value) {

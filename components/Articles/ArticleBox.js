@@ -9,6 +9,7 @@ export default class ArticleBox extends React.Component {
 		this.state = {
 			numberOfItems: props.preferences.getPreference(props.username, "searches")
 		};
+		console.log('ArticleBox component loading...');
 	}
 	
 	componentDidMount() {
@@ -28,10 +29,9 @@ export default class ArticleBox extends React.Component {
 				//console.log("New search! Reseting numberOfItems to 10");
 				this.setState({numberOfItems: this.props.preferences.getPreference(this.props.username, "increment")});
 			}
-	        var couldLoad = this.props.loadNewsFromServer(this.props.subject, this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment"));
-        	if (couldLoad) {
-        		this.setState({numberOfItems: this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment")});
-        	}
+			console.log('Scrolled to bottom...');
+	        this.props.loadNewsFromServer(this.props.subject, this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment"));
+			this.setState({numberOfItems: this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment")});
 	    }
 	}
 

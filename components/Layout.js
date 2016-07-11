@@ -1,7 +1,5 @@
 import React from "react";
 //import md5 from "js-md5";
-import UserPreferences from "../app/UserPreferences";
-import CookieManager from "../app/CookieManager";
 
 export default class Layout extends React.Component {
 
@@ -10,8 +8,7 @@ export default class Layout extends React.Component {
 		// Check if user cookie is set and set the states accordingly
 		console.log("Layout component loading...");	
 		this.state = {
-			logged: false,
-			preferences: new UserPreferences()
+			logged: false
 		};
 	}
 
@@ -49,7 +46,8 @@ export default class Layout extends React.Component {
 
 	render() {
 		return (
-			<div className="row">{React.cloneElement(this.props.children, { preferences: this.state.preferences })}
+			<div className="row">
+				{this.props.children}
 			</div>
 		);
 	}
