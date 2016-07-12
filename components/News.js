@@ -10,7 +10,6 @@ export default class News extends React.Component {
 
 	constructor(props) {
 		super();
-		console.log("News component loading...");
 		this.state = {
 			data: undefined,
 			preferences: new UserPreferences(),
@@ -19,7 +18,6 @@ export default class News extends React.Component {
 	}
 
 	loadNewsFromServer(subject = '', numberOfItems = 10, resetNumberOfItems = false) {
-		console.log("Trying to load news...");
 		var promise = NewsReader.getPromise(subject, numberOfItems);
 		this.subject = subject;
 
@@ -51,8 +49,7 @@ export default class News extends React.Component {
 		var lastSearch = searches[searches.length - 1];
 		this.state.subject = lastSearch;
 		var increment = this.state.preferences.getPreference(this.state.username, "increment");
-		console.log("Loading last search: " + lastSearch);
-		this.loadNewsFromServer(lastSearch, increment);
+		this.loadNewsFromServer(lastSearch, increment, true);
 	}
 
 	componentDidMount() {

@@ -4,7 +4,6 @@ export default class SearchBox extends React.Component {
 
 	constructor(){
 		super();
-		console.log('SearchBox component loading...');
 	}
 
 	handleSearch() {
@@ -12,12 +11,8 @@ export default class SearchBox extends React.Component {
 		var termsArr = terms.split(" ");
 		var searchTerm = termsArr.join("+");
 
-		// Execute search
-		this.props.loadNewsFromServer(searchTerm, this.props.preferences.getPreference(this.props.username, "increment"));
+		this.props.loadNewsFromServer(searchTerm, this.props.preferences.getPreference(this.props.username, "increment"), true);
 
-		console.log('Trying to save search: ' + searchTerm);
-
-		// Update search history
 		this.props.preferences.updateSearchHistory(this.props.username, searchTerm);
 	}
 	

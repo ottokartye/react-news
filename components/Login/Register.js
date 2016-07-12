@@ -1,13 +1,26 @@
 import React from "react";
+import Auth from "../../app/Auth";
+import UserPreferences from "../../app/UserPreferences";
 
 export default class Register extends React.Component {
 
-	registerUser() {
-		var username = document.getElementById('username').value;
-		var password = document.getElementById('password').value;
-		var passwordCheck = document.getElementById('passwordCheck').value;
+	handleRegistration() {
+		var username = this.refs.username.value;
+		var password = this.refs.password.value;
 
-		this.props.register(username, password, passwordCheck);
+		//Auth.register
+		if (Auth.register()) {
+			var preferences = new UserPreferences();
+			preferences.initUser(username, password);
+			const { location } = this.props;
+			this.props.setLoggedStateHandler(true);
+
+			if (location.state && location.state.nextPathname) {
+				this.context.router.replace(location.state.nextPathname);
+			} else {
+				this.context.router.replace('/');
+			}
+		}
 	}
 
 	showUsernameInvalid() {
@@ -34,19 +47,15 @@ export default class Register extends React.Component {
 					<div className="panel-body">
 						<div className="form-group">
 							<label for="username">Username</label>
-							<input type="text" className="form-control" id="username" placeholder="Username" />
+							<input type="text" className="form-control" ref="username" placeholder="Username" />
 							{this.showUsernameInvalid.bind(this)}
 						</div>
 						<div className="form-group">
 							<label for="password">Password</label>
-							<input type="password" className="form-control" id="password" placeholder="Password" />
+							<input type="password" className="form-control" ref="password" placeholder="Password" />
 							{this.showPasswordMissmatch.bind(this)}
 						</div>
-						<div className="form-group">
-							<label for="password-check">Re-type password</label>
-							<input type="password" className="form-control" id="passwordCheck" placeholder="Re-type password" />
-						</div>
-						<button type="button" className="btn btn-primary" onClick={this.registerUser.bind(this)}>Register me</button>
+						<button type="button" className="btn btn-primary" onClick={this.handleRegistration.bind(this)}>Register me</button>
 					</div>
 					<div class="panel-footer">You already have an account? Please <a href="#">sign in</a>.</div>
 				</div>

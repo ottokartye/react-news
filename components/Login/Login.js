@@ -15,8 +15,6 @@ export default class Login extends React.Component {
 		var username = this.refs.username.value;
 		var password = this.refs.password.value;
 
-		console.log('Logging in...');
-
 		var loggedIn = Auth.login(username, password);
 
 		if (!loggedIn) {
@@ -24,6 +22,7 @@ export default class Login extends React.Component {
 		}
 
 		const { location } = this.props;
+		this.props.setLoggedStateHandler(true);
 
 		if (location.state && location.state.nextPathname) {
 			this.context.router.replace(location.state.nextPathname);

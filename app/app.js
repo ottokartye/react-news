@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from "react";
 import ReactDOM from "react-dom";
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 import Layout from "../components/Layout";
+import NavBar from "../components/NavBar";
 import News from "../components/News";
 import Login from "../components/Login/Login";
 import Register from "../components/Login/Register";
@@ -16,6 +17,14 @@ News.contextTypes = {
 };
 
 Login.contextTypes = {
+	router: PropTypes.object.isRequired
+};
+
+Register.contextTypes = {
+	router: PropTypes.object.isRequired
+};
+
+NavBar.contextTypes = {
 	router: PropTypes.object.isRequired
 };
 

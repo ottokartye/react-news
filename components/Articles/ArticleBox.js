@@ -9,7 +9,6 @@ export default class ArticleBox extends React.Component {
 		this.state = {
 			numberOfItems: props.preferences.getPreference(props.username, "searches")
 		};
-		console.log('ArticleBox component loading...');
 	}
 	
 	componentDidMount() {
@@ -26,10 +25,9 @@ export default class ArticleBox extends React.Component {
 		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 			// Reset numberOfItems if it's a new search
 			if (this.props.resetNumberOfItems) {
-				//console.log("New search! Reseting numberOfItems to 10");
+				console.log("New search! Reseting numberOfItems to 10");
 				this.setState({numberOfItems: this.props.preferences.getPreference(this.props.username, "increment")});
 			}
-			console.log('Scrolled to bottom...');
 	        this.props.loadNewsFromServer(this.props.subject, this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment"));
 			this.setState({numberOfItems: this.state.numberOfItems + this.props.preferences.getPreference(this.props.username, "increment")});
 	    }

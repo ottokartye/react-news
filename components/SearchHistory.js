@@ -4,7 +4,6 @@ export default class SearchHistory extends React.Component {
 
     constructor() {
         super();
-        console.log("SearchHistory component loading...");
     }
 
     getPreviousSearches() {
@@ -25,15 +24,12 @@ export default class SearchHistory extends React.Component {
     }
 
     removeSearchHistoryItem(index) {
-        //console.log("removeSearchHistoryItem: " + index);
-        // Delete item from user preferences
         this.props.preferences.removeSearchHistoryItem(this.props.username, index);
         this.setState({reload: true});
     }
 
     handleSearch(item) {
         // Execute search
-        console.log('searching for ' + item);
         this.props.loadNewsFromServer(item, this.props.preferences.getPreference(this.props.username, "increment"), true);
     }
 

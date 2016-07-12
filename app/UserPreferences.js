@@ -4,7 +4,6 @@ export default class UserPreferences {
 
 	checkUserCredentials(username, password) {
 		var preferences = JSON.parse(localStorage.getItem(username));
-		//console.log(preferences);
 		if (preferences != null) {
 			if (preferences.password === password) {
 				return true;
@@ -19,7 +18,6 @@ export default class UserPreferences {
 	initUser(username, password) {
 		var userDto = new UserDto(username, password, "", 10, 1);
 		localStorage.setItem(username, JSON.stringify(userDto));
-		this.setUser(username);
 	}
 
 	getPreferenceObject(username) {
